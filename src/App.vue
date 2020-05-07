@@ -72,16 +72,31 @@ export default {
   components: { Card },
 
   computed: {
+    /**
+     * Check if the inputs are valid.
+     *
+     * @returns {boolean}
+     */
     valid() {
       return !!this.text.trim();
     },
 
+    /**
+     * Reverse ordered card list.
+     *
+     * @returns {*[]}
+     */
     reversedCards() {
       return [...this.cards].reverse();
     }
   },
 
   methods: {
+    /**
+     * Adds new card.
+     *
+     * @returns {Promise<void>}
+     */
     async addCard() {
       if (this.loading) {
         return;
@@ -98,6 +113,12 @@ export default {
       this.loading = false;
     },
 
+    /**
+     * Creates a new card.
+     *
+     * @param text
+     * @returns {Promise<{backgroundColor: string, text: (*|string), textColor: string}>}
+     */
     async createCard(text) {
       let backgroundColor = "#6d4298";
       let textColor = "#FFFFFF";
@@ -120,14 +141,26 @@ export default {
       };
     },
 
+    /**
+     * Updates the document title with given text.
+     * @param text
+     */
     updateTitle(text) {
       document.title = text;
     },
 
+    /**
+     * Fetch the color form the api end-point.
+     *
+     * @returns {Promise<AxiosResponse<any>>}
+     */
     fetchColor() {
       return axios.get("http://api.creativehandles.com/getRandomColor");
     },
 
+    /**
+     * Resets the input field and re focus it.
+     */
     reset() {
       this.text = "";
       this.$refs.text.focus();
@@ -137,6 +170,9 @@ export default {
 </script>
 
 <style lang="scss">
+/**
+Hide un-compiled mustache bindings until the Vue instance is ready
+*/
 [v-cloak] {
   display: none;
 }
